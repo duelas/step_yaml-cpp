@@ -2,8 +2,8 @@ project "yaml-cpp"
 	kind "StaticLib"
 	language "C++"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
+	objdir ("bin-int/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
 	
 	files
 	{
@@ -38,7 +38,15 @@ project "yaml-cpp"
 		systemversion "latest"
 		cppdialect "C++20"
 		staticruntime "off"
-
+		
+	filter "configurations:Editor_Debug"
+		runtime "Debug"
+		symbols "On"		
+	
+	filter "configurations:Editor_Release"
+		runtime "Debug"
+		optimize "on"
+		
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
