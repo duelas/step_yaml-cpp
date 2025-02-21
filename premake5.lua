@@ -4,7 +4,7 @@ project "yaml-cpp"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
+	
 	files
 	{
 		"src/**.h",
