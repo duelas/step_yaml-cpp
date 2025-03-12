@@ -2,9 +2,9 @@ project "yaml-cpp"
 	kind "StaticLib"
 	language "C++"
 
-	targetdir ("bin/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-	objdir ("bin-int/%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-	
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
 	files
 	{
 		"src/**.h",
@@ -38,24 +38,19 @@ project "yaml-cpp"
 		systemversion "latest"
 		cppdialect "C++20"
 		staticruntime "off"
-		
-	filter "configurations:Editor_Debug"
-		runtime "Debug"
-		symbols "On"		
-	
-	filter "configurations:Editor_Release"
-		runtime "Debug"
-		optimize "on"
-		
+
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
-
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
+		
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
-
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
+		
     filter "configurations:Dist"
 		runtime "Release"
 		optimize "on"
-        symbols "off"
+        symbols "off"		
+		postbuildcommands	{	"{COPYDIR} \"%{cfg.targetdir}/%{prj.name}.lib\" \"%{wks.location}/projectmodule/Lib\""	}
